@@ -2,9 +2,9 @@ name: Build fosscord Server docker image
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 
 jobs:
