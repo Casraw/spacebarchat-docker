@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile-prod
     restart: unless-stopped
     ports:
-      - "3001:3001"
+      - "127.0.0.1:3001:3001"
     volumes:
       - fosscord-storage:/exec/persistent/storage
     environment:
