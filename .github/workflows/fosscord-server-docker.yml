@@ -32,7 +32,7 @@ jobs:
         with:
           context: "{{defaultContext}}:fosscord-server/"
           file: Dockerfile-prod
-          push: false
+          push: true
           tags: casraw/fosscord-server:latest-postgressql
       -
         name: Build and push with sqlite
@@ -40,5 +40,5 @@ jobs:
         with:
           context: "{{defaultContext}}:fosscord-server/"
           file: Dockerfile
-          push: false
+          push: true
           tags: casraw/fosscord-server:latest-sqlite

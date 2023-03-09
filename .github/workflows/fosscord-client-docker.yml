@@ -32,5 +32,5 @@ jobs:
         with:
           context: "{{defaultContext}}:fosscord-client/"
           file: Dockerfile
-          push: false
+          push: true
           tags: casraw/fosscord-client:latest
