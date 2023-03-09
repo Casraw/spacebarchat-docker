@@ -1,4 +1,4 @@
-name: Build fosscord docker image
+name: Build fosscord client docker image
 
 on:
   push:
