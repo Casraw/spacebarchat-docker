@@ -1,5 +1,5 @@
 # Fosscord Server Docker
-This only provides fosscord docker image (It is not the official repo only mine build) no real development happens here please reffer to the original fosscord project [Fosscord GitHub](https://github.com/fosscord)
+This only provides fosscord docker image (It is not the official repo only my build) no real development happens here please refer to the original fosscord project [Fosscord GitHub](https://github.com/fosscord)
 
 
 
