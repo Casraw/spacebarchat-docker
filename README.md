@@ -1,6 +1,4 @@
-# Docker
-
-# Fosscord Server
+# Fosscord Server Docker
 
 ## Dev environment
 
