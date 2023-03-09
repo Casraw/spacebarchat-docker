@@ -12,7 +12,7 @@ WORKDIR exec
 RUN mkdir -p persistent/database ; mkdir -p persistent/storage
 RUN apk add --update git ; npm install sqlite3 --save
 COPY --from=builder /devel/fosscord-server/ . 
-RUN adduser -D fosscord ; chown fosscord:fosscord -R /exec
+RUN adduser -D fosscord ; chown fosscord:fosscord -R .
 
 USER fosscord
 
