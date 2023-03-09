@@ -30,7 +30,7 @@ jobs:
         name: Build and push with postgressql
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-client/docker"
+          context: "{{defaultContext}}:fosscord-client/"
           file: Dockerfile
           push: false
           tags: casraw/fosscord-client:latest

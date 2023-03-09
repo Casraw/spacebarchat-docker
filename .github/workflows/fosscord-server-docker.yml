@@ -30,7 +30,7 @@ jobs:
         name: Build and push with postgressql
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-server/docker"
+          context: "{{defaultContext}}:fosscord-server/"
           file: Dockerfile-prod
           push: false
           tags: casraw/fosscord-server:latest-postgressql
@@ -38,7 +38,7 @@ jobs:
         name: Build and push with sqlite
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-server/docker"
+          context: "{{defaultContext}}:fosscord-server/"
           file: Dockerfile
           push: false
           tags: casraw/fosscord-server:latest-sqlite
