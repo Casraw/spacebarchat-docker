@@ -12,7 +12,7 @@ WORKDIR exec
 RUN mkdir -p persistent/database ; mkdir -p persistent/storage
 RUN apk add --update git ; npm install pg --save
 COPY --from=builder /devel/fosscord-server/ . 
-RUN adduser -D fosscord ; chown fosscord:fosscord -R .
+RUN adduser -D fosscord ; chown fosscord:fosscord -R /exec
 
 USER fosscord
 
