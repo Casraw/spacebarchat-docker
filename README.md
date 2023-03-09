@@ -129,7 +129,7 @@ volumes:
 
 Then start it with: `docker-compose -f docker-compose.prod.s3.yaml up` or `docker-compose -f docker-compose.prod.s3.yaml up -d`
 
-At first start, you get an. This error can be ignored due to first start.
+At first start, you get the following error. This error can be ignored due to first start.
 
 ```
 db_1        | 2023-03-04 17:28:25.790 UTC [63] ERROR:  relation "config" does not exist at character 31
@@ -138,4 +138,4 @@ db_1        | 2023-03-04 17:28:25.790 UTC [63] STATEMENT:  SELECT COUNT(1) AS "c
 
 # Fosscord client
 
-Due to the fact that it is under development for now, i provide no client README. In the future it maybe changes.
+Due to the fact that it is under development for now, i provide no client README. It may change in the future.
