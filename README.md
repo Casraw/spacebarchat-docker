@@ -2,7 +2,6 @@
 
 ## Dev environment
 
-This clones the master branch into a docker builder and runs a build before starting it.
 To run it you need docker and docker-compose
 `sudo docker compose up` or `sudo docker compose up -d`
 
@@ -75,12 +74,10 @@ volumes:
   fosscord-storage:
   db:
 ```
-
-This clones the master branch into a docker builder and runs a build before starting it.
 To run it you need docker and docker-compose
 `sudo docker-compose -f docker-compose.prod.yaml up` or `sudo docker-compose -f docker-compose.prod.yaml up -d`
 
-Additional you can set S3 storage backend:
+### Additional you can set S3 storage backend:
 
 ```
 export S3_BUCKET=S3://...
