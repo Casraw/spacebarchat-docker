@@ -8,6 +8,27 @@ This clones the master branch into a docker builder and runs a build before star
 To run it you need docker and docker-compose
 `sudo docker compose up` or `sudo docker compose up -d`
 
+docker-compose.yaml
+```
+version: "3.9"
+services:
+  fosscord:
+    image: casraw/fosscord-server:latest-sqlite
+    ports:
+      - "3001:3001"
+    volumes:
+      - fosscord-database:/exec/persistent/database/
+      - fosscord-storage:/exec/persistent/storage
+    environment:
+      DATABASE: "/exec/persistent/database/database.db"
+      STORAGE_PROVIDER: "file"
+      STORAGE_LOCATION: "/exec/persistent/storage/"
+      PORT: "3001"
+volumes:
+  fosscord-database:
+  fosscord-storage:
+```
+
 ## Prod environment with local file storage or with S3
 
 Set the following environment variables in your environment (adapt POSTGRES_USER, POSTGRES_PASSWORD):
@@ -16,6 +37,45 @@ Set the following environment variables in your environment (adapt POSTGRES_USER
 export POSTGRES_USER=postgres
 export POSTGRES_PASSWORD=postgres
 export POSTGRES_DATABASE=fosscord
+```
+docker-compose.prod.yaml
+```
+version: "3.9"
+services:
+  fosscord:
+    image: casraw/fosscord-server:latest-postgressql
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    volumes:
+      - fosscord-storage:/exec/persistent/storage
+    environment:
+      DATABASE: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DATABASE}
+      STORAGE_PROVIDER: "file"
+      STORAGE_LOCATION: "/exec/persistent/storage/"
+      PORT: "3001"
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER:?err}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:?err}
+      - POSTGRES_DB=${POSTGRES_DATABASE:?err}
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DATABASE} -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  fosscord-storage:
+  db:
 ```
 
 This clones the master branch into a docker builder and runs a build before starting it.
@@ -28,6 +88,45 @@ Additional you can set S3 storage backend:
 export S3_BUCKET=S3://...
 export S3_BUCKET_NAME=test
 export S3_BUCKET_REGION=eu-central-1
+```
+
+docker-compose.prod.s3.yaml
+```
+version: "3.9"
+services:
+  fosscord:
+    image: casraw/fosscord-server:latest-postgressql
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      DATABASE: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DATABASE}
+      STORAGE_PROVIDER: s3
+      STORAGE_LOCATION: ${S3_BUCKET:?err}
+      STORAGE_BUCKET: ${S3_BUCKET_NAME:?err}
+      STORAGE_REGION: ${S3_BUCKET_REGION:?err}
+      PORT: "3001"
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DATABASE} -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  db:
 ```
 
 Then start it with: `docker-compose -f docker-compose.prod.s3.yaml up` or `docker-compose -f docker-compose.prod.s3.yaml up -d`
