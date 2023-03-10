@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile-prod
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3001:3001"
+      - "3001:3001"
     volumes:
       - fosscord-storage:/exec/persistent/storage
     environment:
@@ -41,12 +41,25 @@ services:
     environment:
       - NGINX_HOST=${NGINX_HOST:?err}
       - MAIL_CERTBOT=${MAIL_CERTBOT:?err}
+      - FRONTEND_URL=${FRONTEND_URL:?err}
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - nginx-site:/etc/nginx/sites-enabled/
       - letsencrypt-folder:/etc/letsencrypt
+    depends_on: 
+      - fosscord
+      - fosscord-client
+  fosscord-client:
+    build:
+      context: .
+      dockerfile: Dockerfile-frontend
+      args:
+        - SERVER_URL=${SERVER_URL:?err}
+    restart: unless-stopped
+    ports:
+      - "8080:80"
     depends_on: 
       - fosscord
 volumes:
