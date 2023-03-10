@@ -136,6 +136,10 @@ db_1        | 2023-03-04 17:28:25.790 UTC [63] ERROR:  relation "config" does no
 db_1        | 2023-03-04 17:28:25.790 UTC [63] STATEMENT:  SELECT COUNT(1) AS "cnt" FROM "config" "ConfigEntity"
 ```
 
+## With NGINX
+
+Under fosscord-client/with-nginx there is a small project in experimental state. Which run the fosscord server with an reverse proxy and ssl in it.
+
 # Fosscord client
 
 Due to the fact that it is under development for now, i provide no client README. It may change in the future.
