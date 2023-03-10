@@ -8,6 +8,7 @@ jobs:
 
   build-amd64:
     runs-on: [self-hosted, x64]
+    needs: build-arm64
     steps:
       -
         uses: actions/checkout@v3
@@ -31,7 +32,14 @@ jobs:
           platforms: linux/amd64
           file: Dockerfile
           push: true
-          tags: casraw/fosscord-client:latest
+          tags: casraw/fosscord-client:latest-amd64
+      - 
+        name: Create and push manifest images
+        uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
+        with:
+          inputs: casraw/fosscord-client:latest
+          images: casraw/fosscord-client:latest-amd64,casraw/fosscord-client:latest-arm
+          push: true
 
   build-arm64:
     runs-on: [self-hosted, ARM64]
@@ -58,4 +66,4 @@ jobs:
           platforms: linux/arm/v7,linux/arm64
           file: Dockerfile
           push: true
-          tags: casraw/fosscord-client:latest
+          tags: casraw/fosscord-client:latest-arm

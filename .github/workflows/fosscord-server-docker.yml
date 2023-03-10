@@ -8,6 +8,7 @@ jobs:
 
   build-amd64:
     runs-on: [self-hosted, x64]
+    needs: build-arm64
     steps:
       -
         uses: actions/checkout@v3
@@ -31,7 +32,7 @@ jobs:
           platforms: linux/amd64
           file: Dockerfile-prod
           push: true
-          tags: casraw/fosscord-server:latest-postgressql
+          tags: casraw/fosscord-server:latest-postgressql-amd64
       -
         name: Build and push with sqlite
         uses: docker/build-push-action@v4
@@ -39,7 +40,22 @@ jobs:
           context: "{{defaultContext}}:fosscord-server/"
           file: Dockerfile
           push: true
-          tags: casraw/fosscord-server:latest-sqlite
+          tags: casraw/fosscord-server:latest-sqlite-amd64
+
+      - 
+        name: Create and push manifest images postgressql
+        uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
+        with:
+          inputs: casraw/fosscord-server:latest-postgressql
+          images: casraw/fosscord-server:latest-postgressql-amd64,casraw/fosscord-server:latest-postgressql-arm
+          push: true
+      - 
+        name: Create and push manifest images sqlite
+        uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
+        with:
+          inputs: casraw/fosscord-server:latest-sqlite
+          images: casraw/fosscord-server:latest-sqlite-amd64,casraw/fosscord-server:latest-sqlite-arm
+          push: true
 
   build-arm64:
     runs-on: [self-hosted, ARM64]
@@ -66,7 +82,7 @@ jobs:
           platforms: linux/arm/v7,linux/arm64
           file: Dockerfile-prod
           push: true
-          tags: casraw/fosscord-server:latest-postgressql
+          tags: casraw/fosscord-server:latest-postgressql-arm
       -
         name: Build and push with sqlite
         uses: docker/build-push-action@v4
@@ -74,4 +90,4 @@ jobs:
           context: "{{defaultContext}}:fosscord-server/"
           file: Dockerfile
           push: true
-          tags: casraw/fosscord-server:latest-sqlite
+          tags: casraw/fosscord-server:latest-sqlite-arm
