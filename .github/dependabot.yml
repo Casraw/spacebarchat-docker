@@ -8,4 +8,27 @@ updates:
   - package-ecosystem: "github-actions" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: "daily"
+    reviewers:
+      - "Casraw"
+  # Maintain dependencies for docker fosscord server
+  - package-ecosystem: "docker"
+    directory: "/fosscord-server"
+    schedule:
+      interval: "daily"
+    reviewers:
+      - "Casraw"
+  # Maintain dependencies for docker fosscord server-with-nginx
+  - package-ecosystem: "docker"
+    directory: "/fosscord-server/with-nginx"
+    schedule:
+      interval: "daily"
+    reviewers:
+      - "Casraw"
+  # Maintain dependencies for docker fosscord client
+  - package-ecosystem: "docker"
+    directory: "/fosscord-client"
+    schedule:
+      interval: "daily"
+    reviewers:
+      - "Casraw"
