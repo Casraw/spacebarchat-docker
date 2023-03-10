@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 FROM nginx:alpine
 
 RUN apk add --update certbot certbot-nginx curl

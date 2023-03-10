@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 From node:16-bullseye as builder
 
 WORKDIR devel/
