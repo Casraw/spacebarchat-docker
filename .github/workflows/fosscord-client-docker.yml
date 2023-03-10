@@ -27,7 +27,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push with postgressql
+        name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:fosscord-client/"
