@@ -39,7 +39,7 @@ jobs:
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
         with:
           inputs: casraw/fosscord-client:latest
-          images: casraw/fosscord-client:latest-amd64,casraw/fosscord-client:latest-arm
+          images: casraw/fosscord-client:latest-amd64,casraw/fosscord-client:latest-arm64,casraw/fosscord-client:latest-armv7
           push: true
 
   build-arm64:
@@ -60,12 +60,22 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
+        name: Build and push armv7
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:fosscord-client/"
-          platforms: linux/arm/v7,linux/arm64
+          platforms: ,linux/arm64
           file: Dockerfile
           push: true
-          tags: casraw/fosscord-client:latest-arm
+          tags: casraw/fosscord-client:latest-armv7
+          provenance: false
+      -
+        name: Build and push arm64
+        uses: docker/build-push-action@v4
+        with:
+          context: "{{defaultContext}}:fosscord-client/"
+          platforms: linux/arm64
+          file: Dockerfile
+          push: true
+          tags: casraw/fosscord-client:latest-arm64
           provenance: false
