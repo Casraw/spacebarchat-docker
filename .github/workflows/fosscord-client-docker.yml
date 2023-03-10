@@ -41,6 +41,7 @@ jobs:
           inputs: casraw/fosscord-client:latest
           images: casraw/fosscord-client:latest-amd64,casraw/fosscord-client:latest-arm64,casraw/fosscord-client:latest-armv7
           push: true
+          amend: true
 
   build-arm64:
     runs-on: [self-hosted, ARM64]
