@@ -33,6 +33,7 @@ jobs:
           file: Dockerfile-prod
           push: true
           tags: casraw/fosscord-server:latest-postgressql-amd64
+          provenance: false
       -
         name: Build and push with sqlite
         uses: docker/build-push-action@v4
@@ -41,6 +42,7 @@ jobs:
           file: Dockerfile
           push: true
           tags: casraw/fosscord-server:latest-sqlite-amd64
+          provenance: false
 
       - 
         name: Create and push manifest images postgressql
@@ -83,6 +85,7 @@ jobs:
           file: Dockerfile-prod
           push: true
           tags: casraw/fosscord-server:latest-postgressql-arm
+          provenance: false
       -
         name: Build and push with sqlite
         uses: docker/build-push-action@v4
@@ -91,3 +94,4 @@ jobs:
           file: Dockerfile
           push: true
           tags: casraw/fosscord-server:latest-sqlite-arm
+          provenance: false

@@ -33,6 +33,7 @@ jobs:
           file: Dockerfile
           push: true
           tags: casraw/fosscord-client:latest-amd64
+          provenance: false
       - 
         name: Create and push manifest images
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
@@ -67,3 +68,4 @@ jobs:
           file: Dockerfile
           push: true
           tags: casraw/fosscord-client:latest-arm
+          provenance: false
