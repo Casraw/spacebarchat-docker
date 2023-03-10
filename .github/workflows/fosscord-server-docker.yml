@@ -49,7 +49,7 @@ jobs:
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
         with:
           inputs: casraw/fosscord-server:latest-postgressql
-          images: casraw/fosscord-server:latest-postgressql-amd64,casraw/fosscord-server:latest-postgressql-arm64,casraw/fosscord-server:latest-postgressql-arm7
+          images: casraw/fosscord-server:latest-postgressql-amd64,casraw/fosscord-server:latest-postgressql-arm64
           push: true
           amend: true
       - 
@@ -57,7 +57,7 @@ jobs:
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
         with:
           inputs: casraw/fosscord-server:latest-sqlite
-          images: casraw/fosscord-server:latest-sqlite-amd64,casraw/fosscord-server:latest-sqlite-arm7,casraw/fosscord-server:latest-sqlite-arm64
+          images: casraw/fosscord-server:latest-sqlite-amd64,casraw/fosscord-server:latest-sqlite-arm64
           push: true
           amend: true
 
@@ -79,16 +79,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push with sqlite arm7
-        uses: docker/build-push-action@v4
-        with:
-          context: "{{defaultContext}}:fosscord-server/"
-          platforms: linux/arm/v7
-          file: Dockerfile
-          push: true
-          tags: casraw/fosscord-server:latest-sqlite-arm7
-          provenance: false
-      -
         name: Build and push with sqlite arm64
         uses: docker/build-push-action@v4
         with:
@@ -97,16 +87,6 @@ jobs:
           file: Dockerfile
           push: true
           tags: casraw/fosscord-server:latest-sqlite-arm64
-          provenance: false
-      -
-        name: Build and push with postgressql armv7
-        uses: docker/build-push-action@v4
-        with:
-          context: "{{defaultContext}}:fosscord-server/"
-          platforms: linux/arm/v7
-          file: Dockerfile-prod
-          push: true
-          tags: casraw/fosscord-server:latest-postgressql-arm7
           provenance: false
       -
         name: Build and push with postgressql arm64
