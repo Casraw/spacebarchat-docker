@@ -64,7 +64,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:fosscord-client/"
-          platforms: ,linux/arm64
+          platforms: linux/arm/v7
           file: Dockerfile
           push: true
           tags: casraw/fosscord-client:latest-armv7
