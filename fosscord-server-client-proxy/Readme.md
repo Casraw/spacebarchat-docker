@@ -1,22 +1,18 @@
-# fosscord-docker-with-nginx this is in experimental state!
+## With NGINX and client (Which is under WIP)
 
+Under fosscord-server-client-proxy there is a small project in experimental state. Which run the fosscord server, the fosscord-client with an reverse proxy and ssl in it.
+You need to clone the repo.
+`git clone https://github.com/Casraw/fosscord-docker.git`
+And then go to `fosscord-server-client-proxy`
+Please adapt the following env variables to your need:
 
-# prod environment with local file storage
+```
+export POSTGRES_USER=postgres
+export POSTGRES_PASSWORD=your-password
+export POSTGRES_DATABASE=fosscord
+export MAIL_CERTBOT=your-email
+export NGINX_HOST=your-domain
+```
 
-Set the following environment variables in your environment (adapt POSTGRES_USER, POSTGRES_PASSWORD,MAIL_CERTBOT,NGINX_HOST):
-
-`export POSTGRES_USER=postgres`
-`export POSTGRES_PASSWORD=postgres`
-`export POSTGRES_DATABASE=fosscord`
-`export MAIL_CERTBOT=test@test.test`
-`export NGINX_HOST=domain.de`
-
-This clones the master banch into a docker builder and run a build before starting it.
 To run it you need docker and docker-compose
-`docker-compose -f docker-compose.prod.yaml up` or `docker-compose -f docker-compose.prod.yaml up -d`
-
-At first start you get an
-```
-db_1        | 2023-03-04 17:28:25.790 UTC [63] ERROR:  relation "config" does not exist at character 31
-db_1        | 2023-03-04 17:28:25.790 UTC [63] STATEMENT:  SELECT COUNT(1) AS "cnt" FROM "config" "ConfigEntity"
-```
+`sudo docker-compose -f docker-compose.prod.yaml up` or `sudo docker-compose -f docker-compose.prod.yaml up -d`
