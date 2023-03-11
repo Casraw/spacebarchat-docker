@@ -1,7 +1,7 @@
 # Fosscord Server Docker
 This only provides fosscord docker image (It is not the official repo only my build) no real development happens here please refer to the original fosscord project [Fosscord GitHub](https://github.com/fosscord)
 
-
+GitHub: [Fosscord Docker GitHub](https://github.com/Casraw/fosscord-docker)
 
 ## Dev environment
 
@@ -139,7 +139,9 @@ db_1        | 2023-03-04 17:28:25.790 UTC [63] STATEMENT:  SELECT COUNT(1) AS "c
 ## With NGINX and client (Which is under WIP)
 
 Under fosscord-server-client-proxy there is a small project in experimental state. Which run the fosscord server, the fosscord-client with an reverse proxy and ssl in it.
-You need to clone the repo. And then go to `fosscord-server-client-proxy`
+You need to clone the repo.
+`git clone https://github.com/Casraw/fosscord-docker.git`
+And then go to `fosscord-server-client-proxy`
 Please adapt the following env variables to your need:
 
 ```
