@@ -20,7 +20,7 @@ updates:
       - "Casraw"
   # Maintain dependencies for docker fosscord server-with-nginx
   - package-ecosystem: "docker"
-    directory: "/fosscord-server/with-nginx"
+    directory: "/fosscord-server-client-proxy"
     schedule:
       interval: "daily"
     reviewers:
