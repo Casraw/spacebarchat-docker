@@ -136,10 +136,23 @@ db_1        | 2023-03-04 17:28:25.790 UTC [63] ERROR:  relation "config" does no
 db_1        | 2023-03-04 17:28:25.790 UTC [63] STATEMENT:  SELECT COUNT(1) AS "cnt" FROM "config" "ConfigEntity"
 ```
 
-## With NGINX
+## With NGINX and client (Which is under WIP)
 
-Under fosscord-client/with-nginx there is a small project in experimental state. Which run the fosscord server with an reverse proxy and ssl in it.
+Under fosscord-server-client-proxy there is a small project in experimental state. Which run the fosscord server, the fosscord-client with an reverse proxy and ssl in it.
+You need to clone the repo. And then go to `fosscord-server-client-proxy`
+Please adapt the following env variables to your need:
+
+```
+export POSTGRES_USER=postgres
+export POSTGRES_PASSWORD=your-password
+export POSTGRES_DATABASE=fosscord
+export MAIL_CERTBOT=your-email
+export NGINX_HOST=your-domain
+```
+
+To run it you need docker and docker-compose
+`sudo docker-compose -f docker-compose.prod.yaml up` or `sudo docker-compose -f docker-compose.prod.yaml up -d`
 
 # Fosscord client
 
-Due to the fact that it is under development for now, i provide no client README. It may change in the future.
+Due to the fact that it is under development for now, i provide no client README. It may change in the future. Take a look at the `With NGINX and client (Which is under WIP)` section
