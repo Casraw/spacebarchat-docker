@@ -4,7 +4,7 @@ From node:16-bullseye as builder
 WORKDIR devel/
 RUN apt-get update ; apt-get upgrade -y ; apt-get install -y python-is-python3 build-essential git
 RUN git clone https://github.com/spacebarchat/server.git
-RUN cd spacebarchat-server ; npm i ; npm run setup
+RUN cd server ; npm i ; npm run setup
 
 From node:16-alpine
 
@@ -12,7 +12,7 @@ EXPOSE 3001
 WORKDIR exec
 RUN mkdir -p persistent/database ; mkdir -p persistent/storage
 RUN apk add --update git ; npm install sqlite3 --save
-COPY --from=builder /devel/spacebarchat-server/ . 
+COPY --from=builder /devel/server/ . 
 RUN adduser -D spacebarchat ; chown spacebarchat:spacebarchat -R .
 
 USER spacebarchat
