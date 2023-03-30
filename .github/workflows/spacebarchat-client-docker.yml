@@ -1,4 +1,4 @@
-name: Build fosscord client docker image
+name: Build spacebarchat client docker image
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 jobs:
 
   build-amd64:
-    runs-on: [self-hosted, x64]
+    runs-on: ubuntu-latest
     needs: build-arm64
     steps:
       -
@@ -28,23 +28,23 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-client/"
+          context: "{{defaultContext}}:spacebarchat-client/"
           platforms: linux/amd64
           file: Dockerfile
           push: true
-          tags: casraw/fosscord-client:latest-amd64
+          tags: casraw/spacebarchat-client:latest-amd64
           provenance: false
       - 
         name: Create and push manifest images
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
         with:
-          inputs: casraw/fosscord-client:latest
-          images: casraw/fosscord-client:latest-amd64,casraw/fosscord-client:latest-arm64,casraw/fosscord-client:latest-armv7
+          inputs: casraw/spacebarchat-client:latest
+          images: casraw/spacebarchat-client:latest-amd64,casraw/spacebarchat-client:latest-arm64,casraw/spacebarchat-client:latest-armv7
           push: true
           amend: true
 
   build-arm64:
-    runs-on: [self-hosted, ARM64]
+    runs-on: ubuntu-latest
     steps:
       -
         uses: actions/checkout@v3
@@ -64,19 +64,19 @@ jobs:
         name: Build and push armv7
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-client/"
+          context: "{{defaultContext}}:spacebarchat-client/"
           platforms: linux/arm/v7
           file: Dockerfile
           push: true
-          tags: casraw/fosscord-client:latest-armv7
+          tags: casraw/spacebarchat-client:latest-armv7
           provenance: false
       -
         name: Build and push arm64
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-client/"
+          context: "{{defaultContext}}:spacebarchat-client/"
           platforms: linux/arm64
           file: Dockerfile
           push: true
-          tags: casraw/fosscord-client:latest-arm64
+          tags: casraw/spacebarchat-client:latest-arm64
           provenance: false

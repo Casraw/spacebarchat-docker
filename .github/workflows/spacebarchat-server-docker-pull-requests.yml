@@ -8,7 +8,7 @@ on:
 jobs:
 
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       -
         uses: actions/checkout@v3
@@ -28,16 +28,16 @@ jobs:
         name: Build and push with postgressql
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-server/"
+          context: "{{defaultContext}}:spacebarchat-server/"
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           file: Dockerfile-prod
           push: false
-          tags: casraw/fosscord-server:latest-postgressql
+          tags: casraw/spacebarchat-server:latest-postgressql
       -
         name: Build and push with sqlite
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-server/"
+          context: "{{defaultContext}}:spacebarchat-server/"
           file: Dockerfile
           push: false
-          tags: casraw/fosscord-server:latest-sqlite
+          tags: casraw/spacebarchat-server:latest-sqlite

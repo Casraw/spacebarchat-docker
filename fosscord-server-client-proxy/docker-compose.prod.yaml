@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  fosscord:
+  spacebarchat:
     build:
       context: .
       dockerfile: Dockerfile-prod
@@ -8,7 +8,7 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - fosscord-storage:/exec/persistent/storage
+      - spacebarchat-storage:/exec/persistent/storage
     environment:
       DATABASE: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DATABASE}
       STORAGE_PROVIDER: "file"
@@ -48,9 +48,9 @@ services:
       - nginx-site:/etc/nginx/sites-enabled/
       - letsencrypt-folder:/etc/letsencrypt
     depends_on: 
-      - fosscord
-      - fosscord-client
-  fosscord-client:
+      - spacebarchat
+      - spacebarchat-client
+  spacebarchat-client:
     build:
       context: .
       dockerfile: Dockerfile-frontend
@@ -60,9 +60,9 @@ services:
     ports:
       - "8080:80"
     depends_on: 
-      - fosscord
+      - spacebarchat
 volumes:
-  fosscord-storage:
+  spacebarchat-storage:
   db:
   nginx-site:
   letsencrypt-folder:

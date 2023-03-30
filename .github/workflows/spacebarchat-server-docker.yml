@@ -1,4 +1,4 @@
-name: Build fosscord Server docker image
+name: Build spacebarchat Server docker image
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 jobs:
 
   build-amd64:
-    runs-on: [self-hosted, x64]
+    runs-on: ubuntu-latest
     needs: build-arm64
     steps:
       -
@@ -28,41 +28,41 @@ jobs:
         name: Build and push with postgressql
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-server/"
+          context: "{{defaultContext}}:spacebarchat-server/"
           platforms: linux/amd64
           file: Dockerfile-prod
           push: true
-          tags: casraw/fosscord-server:latest-postgressql-amd64
+          tags: casraw/spacebarchat-server:latest-postgressql-amd64
           provenance: false
       -
         name: Build and push with sqlite
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-server/"
+          context: "{{defaultContext}}:spacebarchat-server/"
           file: Dockerfile
           push: true
-          tags: casraw/fosscord-server:latest-sqlite-amd64
+          tags: casraw/spacebarchat-server:latest-sqlite-amd64
           provenance: false
 
       - 
         name: Create and push manifest images postgressql
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
         with:
-          inputs: casraw/fosscord-server:latest-postgressql
-          images: casraw/fosscord-server:latest-postgressql-amd64,casraw/fosscord-server:latest-postgressql-arm64
+          inputs: casraw/spacebarchat-server:latest-postgressql
+          images: casraw/spacebarchat-server:latest-postgressql-amd64,casraw/spacebarchat-server:latest-postgressql-arm64
           push: true
           amend: true
       - 
         name: Create and push manifest images sqlite
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
         with:
-          inputs: casraw/fosscord-server:latest-sqlite
-          images: casraw/fosscord-server:latest-sqlite-amd64,casraw/fosscord-server:latest-sqlite-arm64
+          inputs: casraw/spacebarchat-server:latest-sqlite
+          images: casraw/spacebarchat-server:latest-sqlite-amd64,casraw/spacebarchat-server:latest-sqlite-arm64
           push: true
           amend: true
 
   build-arm64:
-    runs-on: [self-hosted, ARM64]
+    runs-on: ubuntu-latest
     steps:
       -
         uses: actions/checkout@v3
@@ -82,19 +82,19 @@ jobs:
         name: Build and push with sqlite arm64
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-server/"
+          context: "{{defaultContext}}:spacebarchat-server/"
           platforms: linux/arm64
           file: Dockerfile
           push: true
-          tags: casraw/fosscord-server:latest-sqlite-arm64
+          tags: casraw/spacebarchat-server:latest-sqlite-arm64
           provenance: false
       -
         name: Build and push with postgressql arm64
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-server/"
+          context: "{{defaultContext}}:spacebarchat-server/"
           platforms: linux/arm64
           file: Dockerfile-prod
           push: true
-          tags: casraw/fosscord-server:latest-postgressql-arm64
+          tags: casraw/spacebarchat-server:latest-postgressql-arm64
           provenance: false

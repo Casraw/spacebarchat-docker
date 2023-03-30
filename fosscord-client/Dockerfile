@@ -7,9 +7,9 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
 RUN apt update ; apt install -y yarn nodejs
 
-RUN git clone https://github.com/fosscord/fosscord-client.git ; cd fosscord-client ; git checkout dev/bare-rewrite 
-RUN cd fosscord-client ; yarn install --network-timeout 100000 ; yarn build:web
+RUN git clone https://github.com/spacebarchat/spacebarchat-client.git ; cd spacebarchat-client ; git checkout dev/bare-rewrite 
+RUN cd spacebarchat-client ; yarn install --network-timeout 100000 ; yarn build:web
 
 FROM nginx:alpine
 
-COPY --from=builder /fosscord-client/web-build/ /usr/share/nginx/html/
+COPY --from=builder /spacebarchat-client/web-build/ /usr/share/nginx/html/

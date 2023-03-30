@@ -1,7 +1,7 @@
-# Fosscord Server Docker
-This only provides fosscord docker image (It is not the official repo only my build) no real development happens here please refer to the original fosscord project [Fosscord GitHub](https://github.com/fosscord)
+# Spacebar Server Docker
+This only provides Spacebar docker image (It is not the official repo only my build) no real development happens here please refer to the original Spacebar project [Spacebar GitHub](https://github.com/spacebarchat)
 
-GitHub: [Fosscord Docker GitHub](https://github.com/Casraw/fosscord-docker)
+GitHub: [Spacebar Docker GitHub](https://github.com/Casraw/spacebarchat-docker)
 
 ## Dev environment
 
@@ -12,21 +12,21 @@ docker-compose.yaml
 ```
 version: "3.9"
 services:
-  fosscord:
-    image: casraw/fosscord-server:latest-sqlite
+  spacebarchat:
+    image: casraw/spacebarchat-server:latest-sqlite
     ports:
       - "3001:3001"
     volumes:
-      - fosscord-database:/exec/persistent/database/
-      - fosscord-storage:/exec/persistent/storage
+      - spacebarchat-database:/exec/persistent/database/
+      - spacebarchat-storage:/exec/persistent/storage
     environment:
       DATABASE: "/exec/persistent/database/database.db"
       STORAGE_PROVIDER: "file"
       STORAGE_LOCATION: "/exec/persistent/storage/"
       PORT: "3001"
 volumes:
-  fosscord-database:
-  fosscord-storage:
+  spacebarchat-database:
+  spacebarchat-storage:
 ```
 
 ## Prod environment with local file storage or with S3
@@ -36,19 +36,19 @@ Set the following environment variables in your environment (adapt POSTGRES_USER
 ```
 export POSTGRES_USER=postgres
 export POSTGRES_PASSWORD=postgres
-export POSTGRES_DATABASE=fosscord
+export POSTGRES_DATABASE=spacebarchat
 ```
 docker-compose.prod.yaml
 ```
 version: "3.9"
 services:
-  fosscord:
-    image: casraw/fosscord-server:latest-postgressql
+  spacebarchat:
+    image: casraw/spacebarchat-server:latest-postgressql
     restart: unless-stopped
     ports:
       - "3001:3001"
     volumes:
-      - fosscord-storage:/exec/persistent/storage
+      - spacebarchat-storage:/exec/persistent/storage
     environment:
       DATABASE: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DATABASE}
       STORAGE_PROVIDER: "file"
@@ -74,7 +74,7 @@ services:
       timeout: 5s
       retries: 5
 volumes:
-  fosscord-storage:
+  spacebarchat-storage:
   db:
 ```
 To run it you need docker and docker-compose
@@ -92,8 +92,8 @@ docker-compose.prod.s3.yaml
 ```
 version: "3.9"
 services:
-  fosscord:
-    image: casraw/fosscord-server:latest-postgressql
+  spacebarchat:
+    image: casraw/spacebarchat-server:latest-postgressql
     restart: unless-stopped
     ports:
       - "3001:3001"
@@ -138,16 +138,16 @@ db_1        | 2023-03-04 17:28:25.790 UTC [63] STATEMENT:  SELECT COUNT(1) AS "c
 
 ## With NGINX and client (Which is under WIP)
 
-Under fosscord-server-client-proxy there is a small project in experimental state. Which run the fosscord server, the fosscord-client with an reverse proxy and ssl in it.
+Under spacebarchat-server-client-proxy there is a small project in experimental state. Which run the spacebarchat server, the spacebarchat-client with an reverse proxy and ssl in it.
 You need to clone the repo.
-`git clone https://github.com/Casraw/fosscord-docker.git`
-And then go to `fosscord-server-client-proxy`
+`git clone https://github.com/Casraw/spacebarchat-docker.git`
+And then go to `spacebarchat-server-client-proxy`
 Please adapt the following env variables to your need:
 
 ```
 export POSTGRES_USER=postgres
 export POSTGRES_PASSWORD=your-password
-export POSTGRES_DATABASE=fosscord
+export POSTGRES_DATABASE=spacebarchat
 export MAIL_CERTBOT=your-email
 export NGINX_HOST=your-domain
 ```
@@ -155,6 +155,6 @@ export NGINX_HOST=your-domain
 To run it you need docker and docker-compose
 `sudo docker-compose -f docker-compose.prod.yaml up` or `sudo docker-compose -f docker-compose.prod.yaml up -d`
 
-# Fosscord client
+# spacebarchat client
 
 Due to the fact that it is under development for now, i provide no client README. It may change in the future. Take a look at the `With NGINX and client (Which is under WIP)` section

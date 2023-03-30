@@ -7,7 +7,7 @@ on:
 jobs:
 
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       -
         uses: actions/checkout@v3
@@ -27,8 +27,8 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-client/"
+          context: "{{defaultContext}}:spacebarchat-client/"
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           file: Dockerfile
           push: false
-          tags: casraw/fosscord-client:latest
+          tags: casraw/spacebarchat-client:latest
