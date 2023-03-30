@@ -8,8 +8,8 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt update ; apt install -y yarn nodejs
 
 RUN git clone https://github.com/spacebarchat/client.git 
-RUN cd spacebarchat-client ; yarn install --network-timeout 100000 ; yarn build:web
+RUN cd client ; yarn install --network-timeout 100000 ; yarn build:web
 
 FROM nginx:alpine
 
-COPY --from=builder /spacebarchat-client/web-build/ /usr/share/nginx/html/
+COPY --from=builder /client/web-build/ /usr/share/nginx/html/
