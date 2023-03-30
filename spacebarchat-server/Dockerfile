@@ -3,7 +3,7 @@ From node:16-bullseye as builder
 
 WORKDIR devel/
 RUN apt-get update ; apt-get upgrade -y ; apt-get install -y python-is-python3 build-essential git
-RUN git clone https://github.com/spacebarchat/spacebarchat-server.git
+RUN git clone https://github.com/spacebarchat/server.git
 RUN cd spacebarchat-server ; npm i ; npm run setup
 
 From node:16-alpine
